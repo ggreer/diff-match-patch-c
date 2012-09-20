@@ -19,3 +19,7 @@ CMake*
 *.cmake
 .DS_Store
 *~
+*.dylib
+*.so
+*.dSYM/
+test/dmp_test
