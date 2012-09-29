@@ -243,6 +243,8 @@ extern int dmp_patch_new(
 	uint32_t         len1,
 	const dmp_diff *diff);
 
+extern int dmp_patch_each(void *baton, dmp_operation_t op, const void *data, uint32_t len);
+
 extern void dmp_patch_free(dmp_patch *patch);
 
 /*

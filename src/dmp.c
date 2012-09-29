@@ -608,6 +608,35 @@ int dmp_options_init(dmp_options *opts)
 	return 0;
 }
 
+struct dmp_patch {
+	dmp_pool pool;
+	dmp_range list;
+};
+
+int dmp_patch_new(dmp_patch **patch, const char *text1, uint32_t len1, const dmp_diff *diff) {
+	int rv;
+	dmp_patch *p = calloc(1, sizeof(dmp_patch));
+	*patch = p;
+	if (p == NULL) {
+		return -1;
+	}
+	if (dmp_pool_alloc(&p->pool, START_POOL) < 0) {
+		return -1;
+	}
+//	dmp_range_init(&p->pool, p->list);
+	rv = dmp_diff_foreach(diff, dmp_patch_each, NULL);
+	return rv;
+}
+
+int dmp_patch_each(void *baton, dmp_operation_t op, const void *data, uint32_t len) {
+    return 0;
+}
+
+void dmp_patch_free(dmp_patch *patch) {
+	dmp_pool_free(&patch->pool);
+	free(patch);
+}
+
 uint32_t dmp_common_prefix(
 	const char *t1, uint32_t l1, const char *t2, uint32_t l2)
 {
