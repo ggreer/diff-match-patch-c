@@ -624,12 +624,14 @@ int dmp_patch_new(dmp_patch **patch, const char *text1, uint32_t len1, const dmp
 		return -1;
 	}
 //	dmp_range_init(&p->pool, p->list);
-	rv = dmp_diff_foreach(diff, dmp_patch_each, NULL);
+	rv = dmp_diff_foreach(diff, dmp_patch_each, p);
 	return rv;
 }
 
 int dmp_patch_each(void *baton, dmp_operation_t op, const void *data, uint32_t len) {
-    return 0;
+	dmp_patch *p = baton;
+	dmp_range_insert(&p->pool, &p->list, -1, op, data, 0, len);
+	return 0;
 }
 
 void dmp_patch_free(dmp_patch *patch) {
