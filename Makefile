@@ -1,6 +1,6 @@
 libdmp: src/*.c src/*.h
 #	$(CC) -o libdmpc.1.dylib -g -Wall -std=c99 -Isrc src/*.c -dynamiclib
-	$(CC) -c -fPIC -g -Wall -std=c99 -Isrc src/*.c
+	$(CC) -c -fPIC -g -Wall -Isrc src/*.c
 #	$(CC) -shared -o libdmpc.so *.o
 	ar rcs libdmpc.a *.o
 
